@@ -8,6 +8,14 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+
+                    @if (session('error'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ session('error') }}</strong>
+                                </span>
+                    @endif
+
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
