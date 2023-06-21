@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 19-06-2023 a las 10:45:55
+-- Tiempo de generación: 21-06-2023 a las 06:04:49
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -58,7 +58,21 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2023_06_07_222320_proyectos', 1);
+(5, '2023_06_07_222320_proyectos', 1),
+(6, '2014_10_12_100000_create_password_resets_table', 2),
+(7, '2023_06_21_031111_add_status_to_users_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -121,15 +135,16 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `status` int(10) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Jonas A. Reyes C.', 'jonasreyes@yandex.com', NULL, '$2y$10$VZc52qH.HKedbIznIDiFdeeWcnQjc.L2LbojFnOGadhE18e07PweS', 'XOoJqxnU7Nvw1glqJ1uttScsBD844rHXNmMycArOCQYtEwsk1WfG7kneTrus', '2023-06-18 08:55:38', '2023-06-18 08:55:38');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `status`) VALUES
+(1, 'Jonas A. Reyes C.', 'jonasreyes@yandex.com', NULL, '$2y$10$VZc52qH.HKedbIznIDiFdeeWcnQjc.L2LbojFnOGadhE18e07PweS', 'Wwe8rdFV9J2D3LfwhzxiVexKsYEOx3vI3oa3sn2erzayJk9vdEd5jdmSUgYN', '2023-06-18 08:55:38', '2023-06-18 08:55:38', 0);
 
 --
 -- Índices para tablas volcadas
@@ -147,6 +162,12 @@ ALTER TABLE `failed_jobs`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
 
 --
 -- Indices de la tabla `password_reset_tokens`
@@ -189,7 +210,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
